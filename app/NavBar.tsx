@@ -6,7 +6,7 @@ import logo from '../public/logo.png';
 const NavBar = () => {
     return (
         <nav className='flex space-x-3 mb-6 h-20 items-center'>
-            <Image src={logo} height={40} width={40} alt='Logo'></Image>
+            <Image src={logo} alt='Logo' style={{ width: '40px', height: '40px' }}></Image>
             <Link href='/' className='text-lg'>DApp Crowdsale ICO</Link>
         </nav>
     )

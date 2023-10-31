@@ -2,7 +2,7 @@ import React from 'react'
 
 interface AccountInfo {
     accountNumber: string | undefined;
-    balance: string | undefined;
+    balance: number;
 }
 
 const Info = ({ accountNumber, balance }: AccountInfo) => {
