@@ -26,18 +26,20 @@ const Crowdsale = ({ account, setLoading }: CrowdsaleProps) => {
   const [tokensSold, setTokensSold] = useState<number>(0);
   const [accountBalance, setAccountBalance] = useState<number>(0);
 
-  const { provider, chainId } = useWeb3React();
+  const { provider } = useWeb3React();
 
   useEffect(() => {
     loadContract();
   }, [account]);
 
   const loadContract = async () => {
+    const chainId = process.env.SUPPORT_CHAIN_ID;
+
     try {
 
-      const token = new Contract(config["31337"].token.address, TOKEN_ABI, provider);
+      const token = new Contract(config[31337].token.address, TOKEN_ABI, provider);
 
-      const crowdsale = new Contract(config["31337"].crowdsale.address, CROWDSALE_ABI, provider);
+      const crowdsale = new Contract(config[31337].crowdsale.address, CROWDSALE_ABI, provider);
       setCrowdsale(crowdsale);
 
       const accountBalance = formatUnits(await token.balanceOf(account));
