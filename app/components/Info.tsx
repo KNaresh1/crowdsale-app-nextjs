@@ -1,4 +1,3 @@
-import React from 'react'
 
 interface AccountInfo {
     accountNumber: string | undefined;

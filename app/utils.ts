@@ -1,4 +1,4 @@
-import { ethers } from "ethers"
+import { ethers } from "ethers";
 
 export const formatUnits = (value: number) => {
     return ethers.utils.formatUnits(value, 18);

@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react'
-
-import { Contract, ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-
-import BuyTokens from './components/BuyTokens'
-import Progress from './components/Progress'
+import { Contract } from 'ethers';
+import { useEffect, useState } from 'react';
+import CROWDSALE_ABI from './abis/Crowdsale.json';
+import TOKEN_ABI from './abis/Token.json';
+import BuyTokens from './components/BuyTokens';
 import Info from './components/Info';
-
-import config from './config.json'
-import TOKEN_ABI from './abis/Token.json'
-import CROWDSALE_ABI from './abis/Crowdsale.json'
-
+import Progress from './components/Progress';
+import config from './config.json';
 import { formatUnits } from './utils';
 
 interface CrowdsaleProps {
@@ -37,9 +33,9 @@ const Crowdsale = ({ account, setLoading }: CrowdsaleProps) => {
 
     try {
 
-      const token = new Contract(config[31337].token.address, TOKEN_ABI, provider);
+      const token = new Contract(config["31337"].token.address, TOKEN_ABI, provider);
 
-      const crowdsale = new Contract(config[31337].crowdsale.address, CROWDSALE_ABI, provider);
+      const crowdsale = new Contract(config["31337"].crowdsale.address, CROWDSALE_ABI, provider);
       setCrowdsale(crowdsale);
 
       const accountBalance = formatUnits(await token.balanceOf(account));

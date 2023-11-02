@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useWeb3React } from '@web3-react/core';
-import Spinner from './components/Spinner';
 import { Button } from '@radix-ui/themes';
+import { useWeb3React } from '@web3-react/core';
+import { useEffect, useState } from 'react';
 import Crowdsale from './Crowdsale';
+import Spinner from './components/Spinner';
 
 export default function Home() {
 
@@ -20,7 +20,7 @@ export default function Home() {
   }, [isLoading]);
 
   const connectWallet = async () => {
-    const chainId = process.env.SUPPORT_CHAIN_ID;
+    const chainId = process.env.SUPPORT_CHAIN_ID || "31337";
     try {
 
       await connector.activate(chainId);

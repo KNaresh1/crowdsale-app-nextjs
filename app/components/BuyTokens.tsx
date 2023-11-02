@@ -2,8 +2,8 @@
 
 import { Web3Provider } from '@ethersproject/providers';
 import { Button, TextField } from '@radix-ui/themes';
-import { Contract } from 'ethers'
-import React, { useState } from 'react'
+import { Contract } from 'ethers';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { parseUnits } from '../utils';
 import Spinner from './Spinner';
