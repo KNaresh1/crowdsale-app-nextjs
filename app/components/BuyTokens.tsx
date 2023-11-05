@@ -1,60 +1,74 @@
-'use client';
+"use client";
 
-import { Web3Provider } from '@ethersproject/providers';
-import { Button, TextField } from '@radix-ui/themes';
-import { Contract } from 'ethers';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { parseUnits } from '../utils';
-import Spinner from './Spinner';
+import { Web3Provider } from "@ethersproject/providers";
+import { Button, TextField } from "@radix-ui/themes";
+import { Contract } from "ethers";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import useConnectStore from "../store";
+import { parseUnits } from "../utils";
+import Spinner from "./Spinner";
 
 interface BuyTokensProps {
-    provider: Web3Provider | undefined;
-    crowdsale: Contract | undefined;
-    price: number;
-    setLoadingStatus: (isLoading: boolean) => void;
+  provider: Web3Provider | undefined;
+  crowdsale: Contract | undefined;
+  price: number;
 }
 
 interface BuyTokensForm {
-    amount: number;
+  amount: number;
 }
 
-const BuyTokens = ({ provider, crowdsale, price, setLoadingStatus }: BuyTokensProps) => {
-    const { register, handleSubmit } = useForm<BuyTokensForm>();
+const BuyTokens = ({ provider, crowdsale, price }: BuyTokensProps) => {
+  const setConnectStatus = useConnectStore((s) => s.setConnectStatus);
 
-    const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  const { register, handleSubmit } = useForm<BuyTokensForm>();
 
-    const onSubmit = handleSubmit(async (data) => {
-        try {
-            setSubmitting(true);
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
 
-            const signer = provider?.getSigner() || '0x0';
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setSubmitting(true);
 
-            const value = parseUnits(data.amount * price);
-            const formattedAmount = parseUnits(data.amount);
+      const signer = provider?.getSigner() || "0x0";
 
-            const transaction = await crowdsale?.connect(signer).buyTokens(formattedAmount, { value: value });
-            await transaction.wait();
+      const value = parseUnits(data.amount * price);
+      const formattedAmount = parseUnits(data.amount);
 
-            setSubmitting(false);
-            setLoadingStatus(true);
+      const transaction = await crowdsale
+        ?.connect(signer)
+        .buyTokens(formattedAmount, { value: value });
+      await transaction.wait();
 
-        } catch (error) {
-            setSubmitting(false);
-            console.log("User rejected or transaction reverted. Error: ", error);
-        }
-    });
+      setSubmitting(false);
+      setConnectStatus("Connecting");
+    } catch (error) {
+      setSubmitting(false);
+      console.log("User rejected or transaction reverted. Error: ", error);
+    }
+  });
 
-    return (
-        <div className='py-8'>
-            <form className='flex justify-center items-center space-x-4' onSubmit={onSubmit}>
-                <TextField.Root className='w-80'>
-                    <TextField.Input type='number' placeholder="Enter amount" {...register('amount')} />
-                </TextField.Root>
-                {isSubmitting ? <Spinner /> : <Button className='w-40'>Buy Tokens</Button>}
-            </form>
-        </div>
-    )
-}
+  return (
+    <div className="py-8">
+      <form
+        className="flex justify-center items-center space-x-4"
+        onSubmit={onSubmit}
+      >
+        <TextField.Root className="w-80">
+          <TextField.Input
+            type="number"
+            placeholder="Enter amount"
+            {...register("amount")}
+          />
+        </TextField.Root>
+        {isSubmitting ? (
+          <Spinner />
+        ) : (
+          <Button className="w-40">Buy Tokens</Button>
+        )}
+      </form>
+    </div>
+  );
+};
 
-export default BuyTokens
+export default BuyTokens;

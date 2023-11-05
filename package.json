@@ -38,6 +38,7 @@
     "@web3-react/core": "^8.2.3",
     "@web3-react/metamask": "^8.2.4",
     "eventemitter3": "^5.0.1",
-    "react-hook-form": "^7.47.0"
+    "react-hook-form": "^7.47.0",
+    "zustand": "^4.3.7"
   }
 }

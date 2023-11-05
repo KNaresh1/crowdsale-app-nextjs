@@ -1,6 +1,6 @@
 ## Crowdsale blockchain app (IC0)
 - Smart Contracts - Token.sol and Crowdsale.sol using Solidity
--  FrontEnd - NextJS
+-  FrontEnd - NextJS, zustand - for state manatement
 
 
 ### Tool, Technologies & Plugins
