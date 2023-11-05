@@ -40,7 +40,7 @@ const Home = () => {
         {connectStatus === "Connecting" && <Spinner />}
 
         {(connectStatus === "Not Connected" ||
-          (connectStatus !== "Connecting" && !account)) && (
+          (connectStatus === "Connected" && !account)) && (
           <Button
             className="space-y-8"
             onClick={() => setConnectStatus("Connecting")}

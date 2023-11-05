@@ -14,7 +14,7 @@ contract Crowdsale {
     uint256 public maxTokens;
     uint256 public tokensSold;
 
-    event Buy(uint256 amount, address buyger);
+    event Buy(uint256 amount, address buyer);
     event Finalize(uint256 tokensSold, uint256 ethRaised);
 
     constructor(Token _token, uint256 _price, uint256 _maxTokens) {

@@ -32,7 +32,7 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "buyger",
+        "name": "buyer",
         "type": "address"
       }
     ],
